@@ -1,0 +1,14 @@
+version: "3.7"
+services:
+  db:
+    command: ["--max_connections=1000"]
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=admin
+      - MYSQL_DATABASE=partner-for-progress
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=admin
+    volumes:
+      - "./development/data:/var/lib/mysql"
