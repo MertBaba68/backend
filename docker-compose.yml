@@ -1,14 +1,28 @@
-version: "3.7"
+version: '3.8'
+
 services:
-  db:
-    command: ["--max_connections=1000"]
+  partner-for-progress-db:
     image: mysql:latest
+    container_name: partner-for-progress-db
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+      MYSQL_DATABASE: partner-for-progress
+      MYSQL_MAX_CONNECTIONS: 1000
     ports:
       - "3306:3306"
+    command: --max_connections=1000
+
+  partner-for-progress-test-db:
+    image: mysql:latest
+    container_name: partner-for-progress-test-db
     environment:
-      - MYSQL_ROOT_PASSWORD=admin
-      - MYSQL_DATABASE=partner-for-progress
-      - MYSQL_USER=admin
-      - MYSQL_PASSWORD=admin
-    volumes:
-      - "./development/data:/var/lib/mysql"
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+      MYSQL_DATABASE: partner-for-progress-test
+      MYSQL_MAX_CONNECTIONS: 1000
+    ports:
+      - "3307:3306"
+    command: --max_connections=1000
