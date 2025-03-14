@@ -5,6 +5,7 @@ import nl.vodafoneZiggo.partnerForProgress.services.data.ServiceRepository;
 import nl.vodafoneZiggo.partnerForProgress.services.domain.Service;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
@@ -46,7 +47,7 @@ class ServiceControllerIntegrationTest {
     }
 
     @Test
-    @Name("Retrieving all services")
+    @DisplayName("Retrieving all services")
     void getServices() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/services/"))
                 .andExpect(status().isOk())
@@ -54,7 +55,7 @@ class ServiceControllerIntegrationTest {
     }
 
     @Test
-    @Name("Retrieving service by id")
+    @DisplayName("Retrieving service by id")
     void getServiceById() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/services/" + services.get(1).getId())).andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(services.get(1).getId().toString()))

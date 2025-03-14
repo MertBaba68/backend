@@ -7,6 +7,7 @@ import nl.vodafoneZiggo.partnerForProgress.services.data.ServiceRepository;
 import nl.vodafoneZiggo.partnerForProgress.services.domain.Service;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -42,14 +43,14 @@ class ServiceServiceIntegrationTest {
     }
 
     @Test
-    @Name("Retrieving all services")
+    @DisplayName("Retrieving all services")
     void getServices() {
         List<ServiceDTO> serviceDTOs = serviceService.getServices();
         assertEquals(services.size(), serviceDTOs.size());
     }
 
     @Test
-    @Name("Retrieving service by id")
+    @DisplayName("Retrieving service by id")
     void getServiceById() {
         ServiceDTO serviceDTO = assertDoesNotThrow(() -> serviceService.getServiceById(services.get(0).getId()));
         Service service = services.get(0);
@@ -61,11 +62,10 @@ class ServiceServiceIntegrationTest {
     }
 
     @Test
-    @Name("Retrieving non existed service by id")
+    @DisplayName("Retrieving non existed service by id")
     void getNonExistedServiceById() {
         UUID nonExistedId = UUID.randomUUID();
         NotFoundException exception = assertThrows(NotFoundException.class, () -> serviceService.getServiceById(nonExistedId));
         assertEquals("No service found with id " + nonExistedId, exception.getMessage());
     }
-
 }

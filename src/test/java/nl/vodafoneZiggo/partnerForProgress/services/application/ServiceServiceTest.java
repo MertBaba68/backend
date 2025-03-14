@@ -6,6 +6,7 @@ import nl.vodafoneZiggo.partnerForProgress.services.application.exception.NotFou
 import nl.vodafoneZiggo.partnerForProgress.services.data.ServiceRepository;
 import nl.vodafoneZiggo.partnerForProgress.services.domain.Service;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -33,7 +34,7 @@ class ServiceServiceTest {
     }
 
     @Test
-    @Name("Retrieving all services")
+    @DisplayName("Retrieving all services")
     void getServices() {
         when(serviceRepository.findAll()).thenReturn(services);
 
@@ -51,7 +52,7 @@ class ServiceServiceTest {
     }
 
     @Test
-    @Name("Retrieving a service by id")
+    @DisplayName("Retrieving a service by id")
     void getServiceById() {
         when(serviceRepository.findById(any())).thenReturn(Optional.of(services.get(0)));
 
@@ -64,7 +65,7 @@ class ServiceServiceTest {
     }
 
     @Test
-    @Name("Retrieving a service by id that does not exist")
+    @DisplayName("Retrieving a service by id that does not exist")
     void getServiceByIdNotFound() {
         when(serviceRepository.findById(any())).thenReturn(Optional.empty());
 

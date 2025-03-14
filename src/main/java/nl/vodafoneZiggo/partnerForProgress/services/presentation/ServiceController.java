@@ -26,6 +26,7 @@ public class ServiceController {
     public List<ServiceDTO> getServices() {
         return this.serviceService.getServices();
     }
+
     @GetMapping("/{id}")
     public ServiceDTO getServiceById(@PathVariable UUID id) {
         try {
