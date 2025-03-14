@@ -1,5 +1,6 @@
 package nl.vodafoneZiggo.partnerForProgress.mail;
 
+import nl.vodafoneZiggo.partnerForProgress.mail.exception.InvalidEmailException;
 import nl.vodafoneZiggo.partnerForProgress.mail.exception.MailException;
 import org.springframework.stereotype.Component;
 
@@ -9,7 +10,7 @@ public class PrintlnMail implements Mail {
     }
 
     @Override
-    public void sendEmail(String to, String subject, String body) throws MailException {
+    public void sendEmail(String to, String subject, String body) throws MailException, InvalidEmailException {
         System.out.println("PrintlnMail component received request to email to "+to+"\nwith subject "+subject+"\nand body "+body);
     }
 }
