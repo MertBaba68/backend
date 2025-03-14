@@ -33,8 +33,6 @@ class ContactControllerIntegrationTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-
-
     @BeforeEach
     void setUp() {
         this.cleanUp();
