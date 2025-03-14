@@ -70,6 +70,7 @@ class ContactServiceTest {
         assertDoesNotThrow(()-> contactService.contact(contact));
 
         verify(mail, times(1)).sendEmail(eq(email),anyString(),anyString());
+        verify(mail, times(1)).sendEmail(eq(contact.getEmail()),anyString(),anyString());
     }
 
     @Test
@@ -84,6 +85,7 @@ class ContactServiceTest {
         assertDoesNotThrow(()-> contactService.contact(contact));
 
         verify(mail, times(1)).sendEmail(eq(email),anyString(),anyString());
+        verify(mail, times(1)).sendEmail(eq(contact.getEmail()),anyString(),anyString());
     }
 
     @Test
@@ -98,5 +100,6 @@ class ContactServiceTest {
         assertDoesNotThrow(()-> contactService.contact(contact));
 
         verify(mail, times(1)).sendEmail(eq(email),anyString(),anyString());
+        verify(mail, times(1)).sendEmail(eq(contact.getEmail()),anyString(),anyString());
     }
 }

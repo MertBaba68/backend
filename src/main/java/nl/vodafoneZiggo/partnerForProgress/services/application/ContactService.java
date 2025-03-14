@@ -1,6 +1,7 @@
 package nl.vodafoneZiggo.partnerForProgress.services.application;
 
 import nl.vodafoneZiggo.partnerForProgress.mail.Mail;
+import nl.vodafoneZiggo.partnerForProgress.mail.exception.InvalidEmailException;
 import nl.vodafoneZiggo.partnerForProgress.mail.exception.MailException;
 import nl.vodafoneZiggo.partnerForProgress.services.application.dto.ContactDTO;
 import nl.vodafoneZiggo.partnerForProgress.services.application.exception.NotFoundException;
@@ -39,8 +40,12 @@ public class ContactService {
                     "Contactformulier ingevuld voor " + contact.getLocation() + "\nEmail van invuller " +
                             contact.getEmail() + "\nTelefoonnr van invuller " + contact.getPhone() + "\nNaam van invuller " +
                             contact.getContactPersonName() + "\nIngevulde context:\n" + contact.getContext());
+            this.mail.sendEmail(contact.getEmail(), "Bevestiging Partner for Progress",
+                    "Uw contactformulier is ontvangen. Wij zullen ons best doen om dit zo snel mogelijk te beantwoorden");
         } catch (MailException e) {
             throw new Exception(e.getMessage());
+        } catch (InvalidEmailException e) {
+            throw new IllegalArgumentException(e.getMessage());
         }
     }
 }
