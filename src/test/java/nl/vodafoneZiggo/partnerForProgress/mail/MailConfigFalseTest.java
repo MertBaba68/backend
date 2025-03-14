@@ -22,6 +22,7 @@ class MailConfigFalseTest {
     @DisplayName("Should use PrintlnMail when mail.sendMails is false")
     void shouldUseNylasMail() {
         Mail mail = mailConfig.mailImplementation(nylas, println);
+
         assertInstanceOf(PrintlnMail.class, mail, "Expected PrintlnMail as the implementation");
     }
 }

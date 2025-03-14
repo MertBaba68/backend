@@ -22,6 +22,7 @@ class MailConfigTrueTest {
     @DisplayName("Should use NylasMail when mail.sendMails is true")
     void shouldUseNylasMail() {
         Mail mail = mailConfig.mailImplementation(nylas, println);
+
         assertInstanceOf(NylasMail.class, mail, "Expected NylasMail as the implementation");
     }
 }
