@@ -13,12 +13,12 @@ import java.util.stream.Collectors;
 @Transactional
 @Service
 public class ServiceService {
-
     private final ServiceRepository serviceRepository;
 
     public ServiceService(ServiceRepository serviceRepository) {
         this.serviceRepository = serviceRepository;
     }
+
     public List<ServiceDTO> getServices() {
         return this.serviceRepository.findAll().stream().map(ServiceDTO::fromService).collect(Collectors.toList());
     }

@@ -16,7 +16,6 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/services")
 public class ServiceController {
-
     private final ServiceService serviceService;
 
     public ServiceController(ServiceService serviceService) {
@@ -24,7 +23,7 @@ public class ServiceController {
     }
 
     @GetMapping("/")
-    public List<ServiceDTO> getService() {
+    public List<ServiceDTO> getServices() {
         return this.serviceService.getServices();
     }
     @GetMapping("/{id}")
