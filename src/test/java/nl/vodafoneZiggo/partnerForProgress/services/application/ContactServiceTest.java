@@ -11,6 +11,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.Field;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
@@ -22,14 +24,21 @@ class ContactServiceTest {
     private ServiceRepository serviceRepository;
     private ContactService contactService;
     private Mail mail;
+    private String email;
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws NoSuchFieldException, IllegalAccessException {
         categoriesRepository = mock(CategoriesRepository.class);
         serviceRepository = mock(ServiceRepository.class);
         mail = mock(Mail.class);
 
+        email = "example@gmail.com";
+
         contactService = new ContactService(mail, serviceRepository, categoriesRepository);
+
+        Field field = ContactService.class.getDeclaredField("partnerForProgressEmail");
+        field.setAccessible(true);
+        field.set(contactService, email);
     }
 
     @Test
@@ -60,7 +69,7 @@ class ContactServiceTest {
 
         assertDoesNotThrow(()-> contactService.contact(contact));
 
-        verify(mail, times(1)).sendEmail(eq(contact.getEmail()),anyString(),anyString());
+        verify(mail, times(1)).sendEmail(eq(email),anyString(),anyString());
     }
 
     @Test
@@ -74,7 +83,7 @@ class ContactServiceTest {
 
         assertDoesNotThrow(()-> contactService.contact(contact));
 
-        verify(mail, times(1)).sendEmail(eq(contact.getEmail()),anyString(),anyString());
+        verify(mail, times(1)).sendEmail(eq(email),anyString(),anyString());
     }
 
     @Test
@@ -88,34 +97,6 @@ class ContactServiceTest {
 
         assertDoesNotThrow(()-> contactService.contact(contact));
 
-        verify(mail, times(1)).sendEmail(eq(contact.getEmail()),anyString(),anyString());
-    }
-
-    @Test
-    @DisplayName("Invalid email on contact form returns IllegalArgumentException")
-    void contactInvalidEmail() throws MailException, InvalidEmailException {
-        ContactDTO contact = new ContactDTO("41265544","@gmail.com","0612345678",
-                "Henk Jansen","homepage","I want more info" );
-        String errormessage = "Invalid email format";
-
-        doThrow(new InvalidEmailException(errormessage)).when(mail).sendEmail(eq(contact.getEmail()), anyString(), anyString());
-
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, ()-> contactService.contact(contact));
-
-        assertEquals(errormessage, exception.getMessage());
-    }
-
-    @Test
-    @DisplayName("When something goes wrong in the Email component used by the contact form, it returns an Exception")
-    void contactEmailError() throws MailException, InvalidEmailException {
-        ContactDTO contact = new ContactDTO("41265544","test@gmail.com","0612345678",
-                "Henk Jansen","homepage","I want more info" );
-        String errormessage = "Something went wrong";
-
-        doThrow(new MailException(errormessage)).when(mail).sendEmail(anyString(), anyString(), anyString());
-
-        Exception exception = assertThrows(Exception.class, ()-> contactService.contact(contact));
-
-        assertEquals(errormessage, exception.getMessage());
+        verify(mail, times(1)).sendEmail(eq(email),anyString(),anyString());
     }
 }

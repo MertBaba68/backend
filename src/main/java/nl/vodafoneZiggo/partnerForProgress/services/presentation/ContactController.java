@@ -24,8 +24,6 @@ public class ContactController {
     public void contact(@Validated @RequestBody ContactDTO contactDTO) throws Exception {
         try {
             this.contactService.contact(contactDTO);
-        } catch (IllegalArgumentException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         } catch (NotFoundException e){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
