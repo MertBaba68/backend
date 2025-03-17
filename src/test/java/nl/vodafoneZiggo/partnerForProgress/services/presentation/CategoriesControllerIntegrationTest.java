@@ -68,4 +68,19 @@ class CategoriesControllerIntegrationTest {
     void getNonExistingCategoryById() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/categories/" + UUID.randomUUID())).andExpect(status().isNotFound());
     }
+
+    @Test
+    @DisplayName("Retrieving category by name")
+    void getCategoryByName() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/categories/name/" + categories.get(1).getName())).andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(categories.get(1).getId().toString()))
+                .andExpect(jsonPath("$.name").value(categories.get(1).getName()))
+                .andExpect(jsonPath("$.services.length()").value(categories.get(1).getServices().size()));
+    }
+
+    @Test
+    @DisplayName("Retrieving non existing category by name")
+    void getNonExistingCategoryByName() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/categories/name/kaaskroket")).andExpect(status().isNotFound());
+    }
 }

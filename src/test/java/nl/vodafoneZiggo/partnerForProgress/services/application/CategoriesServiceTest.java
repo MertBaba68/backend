@@ -18,6 +18,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -90,12 +91,46 @@ class CategoriesServiceTest {
     }
 
     @Test
-    @DisplayName("Retrieving non existing Category")
+    @DisplayName("Retrieving non existing Category by id")
     void getNonExistingCategoryById() {
         when(categoriesRepository.findById(any())).thenReturn(Optional.empty());
 
         NotFoundException e = assertThrows(NotFoundException.class, () -> categoriesService.getCategoryById(categories.get(0).getId()));
 
         assertEquals("No category found with id "+categories.get(0).getId(), e.getMessage());
+    }
+
+    @Test
+    @DisplayName("Retrieving category by name")
+    void getCategoryByName() {
+        when(categoriesRepository.findByName(anyString())).thenReturn(Optional.of(categories.get(0)));
+
+        CategoryDTO categoryDTO = assertDoesNotThrow(() -> categoriesService.getCategoryByName(categories.get(0).getName()));
+        Category category = categories.get(0);
+
+        assertEquals(category.getName(), categoryDTO.getName());
+        assertEquals(category.getImage(), categoryDTO.getImage());
+        assertEquals(category.getId(), categoryDTO.getId());
+        assertEquals(category.getServices().size(), categoryDTO.getServices().size());
+
+        for (int serviceI = 0; serviceI < category.getServices().size(); serviceI++) {
+            ServiceDTO serviceDTO = categoryDTO.getServices().get(serviceI);
+            Service service = category.getServices().get(serviceI);
+
+            assertEquals(service.getName(), serviceDTO.getName());
+            assertEquals(service.getDescription(), serviceDTO.getDescription());
+            assertEquals(service.getImage(), serviceDTO.getImage());
+            assertEquals(service.getId(), serviceDTO.getId());
+        }
+    }
+
+    @Test
+    @DisplayName("Retrieving non existing Category by name")
+    void getNonExistingCategoryByName() {
+        when(categoriesRepository.findByName(anyString())).thenReturn(Optional.empty());
+
+        NotFoundException e = assertThrows(NotFoundException.class, () -> categoriesService.getCategoryByName(categories.get(0).getName()));
+
+        assertEquals("No category found with name "+categories.get(0).getName(), e.getMessage());
     }
 }
