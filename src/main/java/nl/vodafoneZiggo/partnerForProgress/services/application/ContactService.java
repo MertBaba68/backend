@@ -5,6 +5,7 @@ import nl.vodafoneZiggo.partnerForProgress.mail.exception.InvalidEmailException;
 import nl.vodafoneZiggo.partnerForProgress.mail.exception.MailException;
 import nl.vodafoneZiggo.partnerForProgress.services.application.dto.ContactDTO;
 import nl.vodafoneZiggo.partnerForProgress.services.application.exception.NotFoundException;
+import nl.vodafoneZiggo.partnerForProgress.services.application.mailCreator.MailGenerator;
 import nl.vodafoneZiggo.partnerForProgress.services.data.CategoriesRepository;
 import nl.vodafoneZiggo.partnerForProgress.services.data.ServiceRepository;
 import org.springframework.beans.factory.annotation.Value;
@@ -35,13 +36,10 @@ public class ContactService {
         }
 
         try {
-            //TODO: Mannan will replace this with HTML formatted email content
-            this.mail.sendEmail(partnerForProgressEmail, "Ingevuld contactformulier " + contact.getLocation(),
-                    "Contactformulier ingevuld voor " + contact.getLocation() + "\nEmail van invuller " +
-                            contact.getEmail() + "\nTelefoonnr van invuller " + contact.getPhone() + "\nNaam van invuller " +
-                            contact.getContactPersonName() + "\nIngevulde context:\n" + contact.getContext());
+            this.mail.sendEmail(partnerForProgressEmail, "Nieuwe aanvraag voor " + contact.getLocation(),
+                    MailGenerator.contactMail(contact));
             this.mail.sendEmail(contact.getEmail(), "Bevestiging Partner for Progress",
-                    "Uw contactformulier is ontvangen. Wij zullen ons best doen om dit zo snel mogelijk te beantwoorden");
+                    MailGenerator.bevestigingMail(contact));
         } catch (MailException e) {
             throw new Exception(e.getMessage());
         } catch (InvalidEmailException e) {
