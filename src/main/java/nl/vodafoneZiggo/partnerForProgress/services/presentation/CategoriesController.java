@@ -35,4 +35,13 @@ public class CategoriesController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
+
+    @GetMapping("/name/{name}")
+    public CategoryDTO getCategoryByName(@PathVariable String name) {
+        try{
+            return this.categoriesService.getCategoryByName(name);
+        } catch (NotFoundException e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        }
+    }
 }

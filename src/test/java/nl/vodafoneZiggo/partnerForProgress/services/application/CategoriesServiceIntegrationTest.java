@@ -73,4 +73,26 @@ class CategoriesServiceIntegrationTest {
 
         assertEquals("No category found with id "+id, e.getMessage());
     }
+
+    @Test
+    @DisplayName("Retrieving category by name")
+    void getCategoryByName() {
+        CategoryDTO categoryDTO = assertDoesNotThrow(() -> categoriesService.getCategoryByName(categories.get(0).getName()));
+        Category category = categories.get(0);
+
+        assertEquals(category.getName(), categoryDTO.getName());
+        assertEquals(category.getImage(), categoryDTO.getImage());
+        assertEquals(category.getId(), categoryDTO.getId());
+        assertEquals(category.getServices().size(), categoryDTO.getServices().size());
+    }
+
+    @Test
+    @DisplayName("Retrieving non existing Category by name")
+    void getNonExistingCategoryByName() {
+        String randomName = "ewfijweoifu3289r";
+
+        NotFoundException e = assertThrows(NotFoundException.class, () -> categoriesService.getCategoryByName(randomName));
+
+        assertEquals("No category found with name "+randomName, e.getMessage());
+    }
 }
