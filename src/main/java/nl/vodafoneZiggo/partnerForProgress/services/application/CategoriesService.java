@@ -26,4 +26,8 @@ public class CategoriesService {
     public CategoryDTO getCategoryById(UUID id) throws NotFoundException {
         return CategoryDTO.fromCategory(this.categoriesRepository.findById(id).orElseThrow(()-> new NotFoundException("No category found with id "+id)));
     }
+
+    public CategoryDTO getCategoryByName(String name) throws NotFoundException {
+        return CategoryDTO.fromCategory(this.categoriesRepository.findByName(name).orElseThrow(()-> new NotFoundException("No category found with name "+name)));
+    }
 }
