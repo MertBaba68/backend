@@ -39,7 +39,7 @@ public class ContactService {
             this.mail.sendEmail(partnerForProgressEmail, "Nieuwe aanvraag voor " + contact.getLocation(),
                     MailGenerator.contactMail(contact));
             this.mail.sendEmail(contact.getEmail(), "Bevestiging Partner for Progress",
-                    MailGenerator.bevestigingMail(contact));
+                    MailGenerator.confirmationMail(contact));
         } catch (MailException e) {
             throw new Exception(e.getMessage());
         } catch (InvalidEmailException e) {
