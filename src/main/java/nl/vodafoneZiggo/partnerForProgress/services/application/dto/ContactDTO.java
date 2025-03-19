@@ -4,6 +4,7 @@ import jakarta.validation.constraints.Email;
 
 public class ContactDTO {
     private String companyName;
+    private String role;
     @Email(message = "Invalid email format")
     private String email;
     private String phone;
@@ -14,8 +15,9 @@ public class ContactDTO {
     protected ContactDTO() {
     }
 
-    public ContactDTO(String companyName, String email, String phone, String contactPersonName, String location, String context) {
+    public ContactDTO(String companyName, String role, String email, String phone, String contactPersonName, String location, String context) {
         this.companyName = companyName;
+        this.role = role;
         this.email = email;
         this.phone = phone;
         this.contactPersonName = contactPersonName;
@@ -29,6 +31,14 @@ public class ContactDTO {
 
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public String getEmail() {

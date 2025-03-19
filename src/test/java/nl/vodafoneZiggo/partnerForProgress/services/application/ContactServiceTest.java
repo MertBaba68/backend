@@ -50,7 +50,7 @@ class ContactServiceTest {
         String location = "nonExistingLocation";
 
         NotFoundException exception = assertThrows(NotFoundException.class, () -> contactService.contact(
-                new ContactDTO("41265544","test@gmail.com","0612345678",
+                new ContactDTO("41265544","CEO","test@gmail.com","0612345678",
                         "Henk Jansen",location,"I want more info" )));
 
         assertEquals("No location exists with name "+location, exception.getMessage());
@@ -64,7 +64,7 @@ class ContactServiceTest {
         when(categoriesRepository.existsByName(anyString())).thenReturn(false);
         when(serviceRepository.existsByName(anyString())).thenReturn(false);
 
-        ContactDTO contact = new ContactDTO("41265544","test@gmail.com","0612345678",
+        ContactDTO contact = new ContactDTO("41265544","CEO","test@gmail.com","0612345678",
                 "Henk Jansen","homepage","I want more info" );
 
         assertDoesNotThrow(()-> contactService.contact(contact));
@@ -79,7 +79,7 @@ class ContactServiceTest {
         when(categoriesRepository.existsByName(anyString())).thenReturn(true);
         when(serviceRepository.existsByName(anyString())).thenReturn(false);
 
-        ContactDTO contact = new ContactDTO("41265544","test@gmail.com","0612345678",
+        ContactDTO contact = new ContactDTO("41265544","CEO","test@gmail.com","0612345678",
                 "Henk Jansen","Infrastructure","I want more info" );
 
         assertDoesNotThrow(()-> contactService.contact(contact));
@@ -94,7 +94,7 @@ class ContactServiceTest {
         when(categoriesRepository.existsByName(anyString())).thenReturn(false);
         when(serviceRepository.existsByName(anyString())).thenReturn(true);
 
-        ContactDTO contact = new ContactDTO("41265544","test@gmail.com","0612345678",
+        ContactDTO contact = new ContactDTO("41265544","CEO","test@gmail.com","0612345678",
                 "Henk Jansen","Road building","I want more info" );
 
         assertDoesNotThrow(()-> contactService.contact(contact));
