@@ -7,7 +7,6 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 
 public class MailGenerator {
-
     public static String confirmationMail(ContactDTO contact) throws IOException {
         String htmlTemplate = new String(Files.readAllBytes(Paths.get("src/main/resources/templateEmails/confirmationMail.html")));
         return String.format(htmlTemplate,
