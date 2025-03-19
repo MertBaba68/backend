@@ -30,9 +30,9 @@ class ServiceControllerIntegrationTest {
     void setUp() {
         cleanUp();
         services = List.of(
-                new Service("service 1", "test service", "test image"),
-                new Service("service 2", "test service", "test image"),
-                new Service("service 3", "test service", "test image")
+                new Service("service 1", "test service", "test image","a"),
+                new Service("service 2", "test service", "test image","b"),
+                new Service("service 3", "test service", "test image","c")
         );
 
         this.serviceRepository.saveAll(services);
@@ -58,6 +58,7 @@ class ServiceControllerIntegrationTest {
                 .andExpect(jsonPath("$.id").value(services.get(1).getId().toString()))
                 .andExpect(jsonPath("$.name").value(services.get(1).getName()))
                 .andExpect(jsonPath("$.description").value(services.get(1).getDescription()))
-                .andExpect(jsonPath("$.image").value(services.get(1).getImage()));
+                .andExpect(jsonPath("$.secondaryImage").value(services.get(1).getSecondaryImage()))
+                .andExpect(jsonPath("$.headerImage").value(services.get(1).getHeaderImage()));
     }
 }

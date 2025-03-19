@@ -34,8 +34,8 @@ class CategoriesServiceTest {
 
         categories = new ArrayList<>();
         categories.add(new Category("test1", "test", List.of()));
-        categories.add(new Category("test2", "test", List.of(new Service("service 1", "test service", "test image"))));
-        categories.add(new Category("test3", "test", List.of(new Service("service 2", "test service", "test image"), new Service("service 2", "test service", "test image"))));
+        categories.add(new Category("test2", "test", List.of(new Service("service 1", "test service", "test image","secondary image"))));
+        categories.add(new Category("test3", "test", List.of(new Service("service 2", "test service", "test image","secondary image"), new Service("service 2", "test service", "test image","secondary image"))));
     }
 
     @Test
@@ -60,7 +60,7 @@ class CategoriesServiceTest {
 
                 assertEquals(service.getName(), serviceDTO.getName());
                 assertEquals(service.getDescription(), serviceDTO.getDescription());
-                assertEquals(service.getImage(), serviceDTO.getImage());
+                assertEquals(service.getHeaderImage(), serviceDTO.getHeaderImage());
                 assertEquals(service.getId(), serviceDTO.getId());
             }
         }
@@ -85,7 +85,7 @@ class CategoriesServiceTest {
 
             assertEquals(service.getName(), serviceDTO.getName());
             assertEquals(service.getDescription(), serviceDTO.getDescription());
-            assertEquals(service.getImage(), serviceDTO.getImage());
+            assertEquals(service.getHeaderImage(), serviceDTO.getHeaderImage());
             assertEquals(service.getId(), serviceDTO.getId());
         }
     }
@@ -119,7 +119,7 @@ class CategoriesServiceTest {
 
             assertEquals(service.getName(), serviceDTO.getName());
             assertEquals(service.getDescription(), serviceDTO.getDescription());
-            assertEquals(service.getImage(), serviceDTO.getImage());
+            assertEquals(service.getHeaderImage(), serviceDTO.getHeaderImage());
             assertEquals(service.getId(), serviceDTO.getId());
         }
     }
