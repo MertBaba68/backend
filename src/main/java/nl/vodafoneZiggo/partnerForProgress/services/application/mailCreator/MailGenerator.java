@@ -12,6 +12,7 @@ public class MailGenerator {
         return String.format(htmlTemplate,
                 contact.getContactPersonName(),
                 contact.getLocation(),
+                contact.getCompanyName(),
                 contact.getContactPersonName(),
                 contact.getPhone(),
                 contact.getEmail(),
@@ -24,6 +25,7 @@ public class MailGenerator {
         String htmlTemplate = new String(Files.readAllBytes(Paths.get("src/main/resources/templateEmails/contact.html")));
         return String.format(htmlTemplate,
                 contact.getLocation(),
+                contact.getCompanyName(),
                 contact.getContactPersonName(),
                 contact.getPhone(),
                 contact.getEmail(),
