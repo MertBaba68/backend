@@ -46,7 +46,7 @@ class ContactControllerIntegrationTest {
     @Test
     @DisplayName("Cannot fill in contact form on non existing page")
     void contactNonExistingPage() throws Exception {
-        ContactDTO contact = new ContactDTO("41265544", "test@gmail.com", "0612345678",
+        ContactDTO contact = new ContactDTO("41265544","CEO", "test@gmail.com", "0612345678",
                 "Henk Jansen", "nonExistingLocation", "I want more info");
 
         mockMvc.perform(MockMvcRequestBuilders.post("/contact/")
@@ -58,7 +58,7 @@ class ContactControllerIntegrationTest {
     @Test
     @DisplayName("Can fill in contact form on existing homepage")
     void contactHomepage() throws Exception {
-        ContactDTO contact = new ContactDTO("41265544","test@gmail.com","0612345678",
+        ContactDTO contact = new ContactDTO("41265544","CEO","test@gmail.com","0612345678",
                 "Henk Jansen","homepage","I want more info" );
 
         mockMvc.perform(MockMvcRequestBuilders.post("/contact/")
@@ -73,7 +73,7 @@ class ContactControllerIntegrationTest {
         Category category = new Category("Infrastructure","nope", List.of());
         this.categoriesRepository.save(category);
 
-        ContactDTO contact = new ContactDTO("41265544","test@gmail.com","0612345678",
+        ContactDTO contact = new ContactDTO("41265544","CEO","test@gmail.com","0612345678",
                 "Henk Jansen",category.getName(),"I want more info" );
 
         mockMvc.perform(MockMvcRequestBuilders.post("/contact/")
@@ -88,7 +88,7 @@ class ContactControllerIntegrationTest {
         Category category = new Category("Infrastructure","nope", List.of(new Service("Road building","Building private roads","nope")));
         this.categoriesRepository.save(category);
 
-        ContactDTO contact = new ContactDTO("41265544","test@gmail.com","0612345678",
+        ContactDTO contact = new ContactDTO("41265544","CEO","test@gmail.com","0612345678",
                 "Henk Jansen",category.getServices().get(0).getName(),"I want more info" );
 
         mockMvc.perform(MockMvcRequestBuilders.post("/contact/")
@@ -111,7 +111,7 @@ class ContactControllerIntegrationTest {
     @DisplayName("Invalid email on contact form returns 400")
     @MethodSource("provideIncorrectEmails")
     void contactInvalidEmail(String email) throws Exception {
-        ContactDTO contact = new ContactDTO("41265544",email,"0612345678",
+        ContactDTO contact = new ContactDTO("41265544","CEO",email,"0612345678",
                 "Henk Jansen","homepage","I want more info" );
 
         mockMvc.perform(MockMvcRequestBuilders.post("/contact/")

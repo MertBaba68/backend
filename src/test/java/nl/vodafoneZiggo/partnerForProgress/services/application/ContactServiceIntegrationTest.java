@@ -39,7 +39,7 @@ class ContactServiceIntegrationTest {
         String location = "nonExistingLocation";
 
         NotFoundException exception = assertThrows(NotFoundException.class, () -> contactService.contact(
-                new ContactDTO("41265544","test@gmail.com","0612345678",
+                new ContactDTO("41265544","CEO","test@gmail.com","0612345678",
                         "Henk Jansen",location,"I want more info" )));
 
         assertEquals("No location exists with name "+location, exception.getMessage());
@@ -48,7 +48,7 @@ class ContactServiceIntegrationTest {
     @Test
     @DisplayName("Can fill in contact form on existing homepage")
     void contactHomepage() {
-        ContactDTO contact = new ContactDTO("41265544","test@gmail.com","0612345678",
+        ContactDTO contact = new ContactDTO("41265544","CEO","test@gmail.com","0612345678",
                 "Henk Jansen","homepage","I want more info" );
 
         assertDoesNotThrow(()-> contactService.contact(contact));
@@ -61,7 +61,7 @@ class ContactServiceIntegrationTest {
         this.categoriesRepository.save(category);
 
 
-        ContactDTO contact = new ContactDTO("41265544","test@gmail.com","0612345678",
+        ContactDTO contact = new ContactDTO("41265544","CEO","test@gmail.com","0612345678",
                 "Henk Jansen",category.getName(),"I want more info" );
 
         assertDoesNotThrow(()-> contactService.contact(contact));
@@ -73,7 +73,7 @@ class ContactServiceIntegrationTest {
         Category category = new Category("Infrastructure","nope", List.of(new Service("Road building","Building private roads","nope")));
         this.categoriesRepository.save(category);
 
-        ContactDTO contact = new ContactDTO("41265544","test@gmail.com","0612345678",
+        ContactDTO contact = new ContactDTO("41265544","CEO","test@gmail.com","0612345678",
                 "Henk Jansen",category.getServices().get(0).getName(),"I want more info" );
 
         assertDoesNotThrow(()-> contactService.contact(contact));
