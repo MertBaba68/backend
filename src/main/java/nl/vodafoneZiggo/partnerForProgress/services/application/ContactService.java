@@ -36,7 +36,7 @@ public class ContactService {
         }
 
         try {
-            this.mail.sendEmail(partnerForProgressEmail, "Nieuwe aanvraag voor " + contact.getLocation(),
+            this.mail.sendEmail(partnerForProgressEmail, "Nieuwe aanvraag op " + contact.getLocation(),
                     MailGenerator.contactMail(contact));
             this.mail.sendEmail(contact.getEmail(), "Bevestiging Partner for Progress",
                     MailGenerator.confirmationMail(contact));
