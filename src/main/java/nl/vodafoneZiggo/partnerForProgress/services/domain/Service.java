@@ -11,19 +11,23 @@ public class Service {
     @Id
     private UUID id;
     private String name;
+    private String smallDescription;
     private String description;
 
     @Lob
-    private String image;
+    private String headerImage;
+    @Lob
+    private String secondaryImage;
 
     protected Service() {
     }
 
-    public Service(String name, String description, String image) {
+    public Service(String name, String description, String headerImage, String secondaryImage) {
         this.id = UUID.randomUUID();
         this.name = name;
         this.description = description;
-        this.image = image;
+        this.headerImage = headerImage;
+        this.secondaryImage = secondaryImage;
     }
 
     public UUID getId() {
@@ -38,7 +42,11 @@ public class Service {
         return this.description;
     }
 
-    public String getImage() {
-        return this.image;
+    public String getHeaderImage() {
+        return this.headerImage;
+    }
+
+    public String getSecondaryImage() {
+        return this.secondaryImage;
     }
 }

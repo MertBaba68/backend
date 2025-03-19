@@ -1,6 +1,5 @@
 package nl.vodafoneZiggo.partnerForProgress.services.application;
 
-import jdk.jfr.Name;
 import nl.vodafoneZiggo.partnerForProgress.services.application.dto.ServiceDTO;
 import nl.vodafoneZiggo.partnerForProgress.services.application.exception.NotFoundException;
 import nl.vodafoneZiggo.partnerForProgress.services.data.ServiceRepository;
@@ -29,9 +28,9 @@ class ServiceServiceIntegrationTest {
     void setUp() {
         cleanUp();
         services = List.of(
-                new Service("service 1", "test service", "test image"),
-                new Service("service 2", "test service", "test image"),
-                new Service("service 3", "test service", "test image")
+                new Service("service 1", "test service", "test image","secondary image"),
+                new Service("service 2", "test service", "test image","nope"),
+                new Service("service 3", "test service", "test image","bye")
         );
 
         this.serviceRepository.saveAll(services);
@@ -58,7 +57,7 @@ class ServiceServiceIntegrationTest {
         assertEquals(service.getId(), serviceDTO.getId());
         assertEquals(service.getName(), serviceDTO.getName());
         assertEquals(service.getDescription(), serviceDTO.getDescription());
-        assertEquals(service.getImage(), serviceDTO.getImage());
+        assertEquals(service.getHeaderImage(), serviceDTO.getHeaderImage());
     }
 
     @Test

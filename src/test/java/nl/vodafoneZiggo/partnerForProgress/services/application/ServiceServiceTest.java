@@ -1,6 +1,5 @@
 package nl.vodafoneZiggo.partnerForProgress.services.application;
 
-import jdk.jfr.Name;
 import nl.vodafoneZiggo.partnerForProgress.services.application.dto.ServiceDTO;
 import nl.vodafoneZiggo.partnerForProgress.services.application.exception.NotFoundException;
 import nl.vodafoneZiggo.partnerForProgress.services.data.ServiceRepository;
@@ -27,9 +26,9 @@ class ServiceServiceTest {
         serviceRepository = mock(ServiceRepository.class);
         serviceService = new ServiceService(serviceRepository);
         services = List.of(
-                new Service("service 1", "test service", "test image"),
-                new Service("service 2", "test service", "test image"),
-                new Service("service 3", "test service", "test image")
+                new Service("service 1", "test service", "test image","hi"),
+                new Service("service 2", "test service", "test image","bye"),
+                new Service("service 3", "test service", "test image","see you")
         );
     }
 
@@ -47,7 +46,7 @@ class ServiceServiceTest {
 
             assertEquals(service.getName(), serviceDTO.getName());
             assertEquals(service.getDescription(), serviceDTO.getDescription());
-            assertEquals(service.getImage(), serviceDTO.getImage());
+            assertEquals(service.getHeaderImage(), serviceDTO.getHeaderImage());
         }
     }
 
@@ -60,7 +59,7 @@ class ServiceServiceTest {
         Service service = services.get(0);
         assertEquals(service.getName(), serviceDTO.getName());
         assertEquals(service.getDescription(), serviceDTO.getDescription());
-        assertEquals(service.getImage(), serviceDTO.getImage());
+        assertEquals(service.getHeaderImage(), serviceDTO.getHeaderImage());
         assertEquals(service.getId(), serviceDTO.getId());
     }
 

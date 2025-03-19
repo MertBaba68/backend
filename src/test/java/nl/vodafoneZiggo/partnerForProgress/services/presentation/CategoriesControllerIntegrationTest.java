@@ -35,8 +35,8 @@ class CategoriesControllerIntegrationTest {
 
         categories = new ArrayList<>();
         categories.add(new Category("test1", "test", List.of()));
-        categories.add(new Category("test2", "test", List.of(new Service("service 1", "test service", "test image"))));
-        categories.add(new Category("test3", "test", List.of(new Service("service 2", "test service", "test image"), new Service("service 2", "test service", "test image"))));
+        categories.add(new Category("test2", "test", List.of(new Service("service 1", "test service", "test image","a"))));
+        categories.add(new Category("test3", "test", List.of(new Service("service 2", "test service", "test image","b"), new Service("service 2", "test service", "test image","c"))));
 
         this.categoriesRepository.saveAll(categories);
     }
