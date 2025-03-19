@@ -4,8 +4,8 @@ import jakarta.validation.constraints.Email;
 
 public class ContactDTO {
     private String companyName;
-    @Email(message = "Invalid email format")
     private String role;
+    @Email(message = "Invalid email format")
     private String email;
     private String phone;
     private String contactPersonName;
