@@ -3,6 +3,7 @@ package nl.vodafoneZiggo.partnerForProgress.services.application;
 import nl.vodafoneZiggo.partnerForProgress.services.application.dto.ServiceDTO;
 import nl.vodafoneZiggo.partnerForProgress.services.application.exception.NotFoundException;
 import nl.vodafoneZiggo.partnerForProgress.services.data.ServiceRepository;
+import nl.vodafoneZiggo.partnerForProgress.services.domain.Information;
 import nl.vodafoneZiggo.partnerForProgress.services.domain.Service;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -28,9 +29,9 @@ class ServiceServiceIntegrationTest {
     void setUp() {
         cleanUp();
         services = List.of(
-                new Service("service 1", "test service", "test image","secondary image"),
-                new Service("service 2", "test service", "test image","nope"),
-                new Service("service 3", "test service", "test image","bye")
+                new Service("service 1", "test service", "test image",List.of(new Information("hello","bye",List.of("hu","ha"),"nope"))),
+                new Service("service 2", "test service", "test image",List.of()),
+                new Service("service 3", "test service", "test image",List.of())
         );
 
         this.serviceRepository.saveAll(services);

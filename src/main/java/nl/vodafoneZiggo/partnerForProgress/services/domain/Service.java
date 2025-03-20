@@ -1,10 +1,9 @@
 package nl.vodafoneZiggo.partnerForProgress.services.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
+import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -18,19 +17,19 @@ public class Service {
     @Lob
     @Column(columnDefinition = "LONGTEXT")
     private String headerImage;
-    @Lob
-    @Column(columnDefinition = "LONGTEXT")
-    private String secondaryImage;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Information> about;
 
     protected Service() {
     }
 
-    public Service(String name, String description, String headerImage, String secondaryImage) {
+    public Service(String name, String description, String headerImage, List<Information> about) {
         this.id = UUID.randomUUID();
         this.name = name;
         this.description = description;
         this.headerImage = headerImage;
-        this.secondaryImage = secondaryImage;
+        this.about = about;
     }
 
     public UUID getId() {
@@ -41,6 +40,10 @@ public class Service {
         return this.name;
     }
 
+    public String getSmallDescription() {
+        return this.smallDescription;
+    }
+
     public String getDescription() {
         return this.description;
     }
@@ -49,7 +52,7 @@ public class Service {
         return this.headerImage;
     }
 
-    public String getSecondaryImage() {
-        return this.secondaryImage;
+    public List<Information> getAbout() {
+        return new ArrayList<>(this.about);
     }
 }
