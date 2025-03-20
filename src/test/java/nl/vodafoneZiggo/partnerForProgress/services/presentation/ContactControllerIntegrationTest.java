@@ -85,7 +85,7 @@ class ContactControllerIntegrationTest {
     @Test
     @DisplayName("Can fill in contact form on existing service")
     void contactServicePage() throws Exception {
-        Category category = new Category("Infrastructure","nope", List.of(new Service("Road building","Building private roads","nope","bye")));
+        Category category = new Category("Infrastructure","nope", List.of(new Service("Road building","Building private roads","nope",List.of())));
         this.categoriesRepository.save(category);
 
         ContactDTO contact = new ContactDTO("41265544","CEO","test@gmail.com","0612345678",

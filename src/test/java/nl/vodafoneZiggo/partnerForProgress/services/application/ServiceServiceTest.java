@@ -26,9 +26,9 @@ class ServiceServiceTest {
         serviceRepository = mock(ServiceRepository.class);
         serviceService = new ServiceService(serviceRepository);
         services = List.of(
-                new Service("service 1", "test service", "test image","hi"),
-                new Service("service 2", "test service", "test image","bye"),
-                new Service("service 3", "test service", "test image","see you")
+                new Service("service 1", "test service", "test image",List.of()),
+                new Service("service 2", "test service", "test image",List.of()),
+                new Service("service 3", "test service", "test image",List.of())
         );
     }
 
