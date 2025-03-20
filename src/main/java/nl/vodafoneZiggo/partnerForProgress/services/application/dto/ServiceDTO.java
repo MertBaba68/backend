@@ -8,20 +8,22 @@ public class ServiceDTO {
     private UUID id;
     private String name;
     private String description;
-    private String image;
+    private String headerImage;
+    private String secondaryImage;
 
     protected ServiceDTO() {
     }
 
-    public ServiceDTO(UUID id, String name, String description, String image) {
+    public ServiceDTO(UUID id, String name, String description, String headerImage, String secondaryImage) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.image = image;
+        this.headerImage = headerImage;
+        this.secondaryImage = secondaryImage;
     }
 
     public static ServiceDTO fromService(Service service) {
-        return new ServiceDTO(service.getId(), service.getName(), service.getDescription(), service.getImage());
+        return new ServiceDTO(service.getId(), service.getName(), service.getDescription(), service.getHeaderImage(), service.getSecondaryImage());
     }
 
     public UUID getId() {
@@ -36,7 +38,11 @@ public class ServiceDTO {
         return this.description;
     }
 
-    public String getImage() {
-        return this.image;
+    public String getHeaderImage() {
+        return this.headerImage;
+    }
+
+    public String getSecondaryImage() {
+        return this.secondaryImage;
     }
 }

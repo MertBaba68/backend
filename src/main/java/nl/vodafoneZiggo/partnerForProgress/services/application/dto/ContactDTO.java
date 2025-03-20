@@ -3,7 +3,8 @@ package nl.vodafoneZiggo.partnerForProgress.services.application.dto;
 import jakarta.validation.constraints.Email;
 
 public class ContactDTO {
-    private String chamberOfCommerce;
+    private String companyName;
+    private String role;
     @Email(message = "Invalid email format")
     private String email;
     private String phone;
@@ -14,8 +15,9 @@ public class ContactDTO {
     protected ContactDTO() {
     }
 
-    public ContactDTO(String chamberOfCommerce, String email, String phone, String contactPersonName, String location, String context) {
-        this.chamberOfCommerce = chamberOfCommerce;
+    public ContactDTO(String companyName, String role, String email, String phone, String contactPersonName, String location, String context) {
+        this.companyName = companyName;
+        this.role = role;
         this.email = email;
         this.phone = phone;
         this.contactPersonName = contactPersonName;
@@ -23,12 +25,20 @@ public class ContactDTO {
         this.context = context;
     }
 
-    public String getChamberOfCommerce() {
-        return this.chamberOfCommerce;
+    public String getCompanyName() {
+        return this.companyName;
     }
 
-    public void setChamberOfCommerce(String chamberOfCommerce) {
-        this.chamberOfCommerce = chamberOfCommerce;
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public String getEmail() {
