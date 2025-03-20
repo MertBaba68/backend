@@ -1,5 +1,6 @@
 package nl.vodafoneZiggo.partnerForProgress.services.domain;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
@@ -15,8 +16,10 @@ public class Service {
     private String description;
 
     @Lob
+    @Column(columnDefinition = "LONGTEXT")
     private String headerImage;
     @Lob
+    @Column(columnDefinition = "LONGTEXT")
     private String secondaryImage;
 
     protected Service() {
