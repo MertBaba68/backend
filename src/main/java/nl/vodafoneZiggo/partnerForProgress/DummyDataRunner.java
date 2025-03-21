@@ -90,7 +90,6 @@ public class DummyDataRunner implements CommandLineRunner {
                     ))
             );
 
-            // Save categories and services to the database
             categoriesRepository.saveAll(categories);
 
             System.out.println("Dummydata saved successfully!");
