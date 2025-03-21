@@ -105,7 +105,7 @@ public class DummyDataRunner implements CommandLineRunner {
         // Makes an list of Information object for Service, no matter the category
         List<Information> about = new ArrayList<>();
 
-        // Algemene informatie die bij alle services past
+        // General info
         about.add(new Information("Payoff", "Maak briljante werkplekbeslissingen.", Arrays.asList(
                 "Haal nog meer uit je kantoorruimtes. Nimway van Sony is een complete suite van slimme kantoorsensoren, schermen en applicaties.",
                 "Kiezen voor Nimway betekent een benadering omarmen die werkplekken aanpast aan een nieuwe realiteit.",
