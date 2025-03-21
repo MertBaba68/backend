@@ -21,7 +21,6 @@ import java.util.UUID;
 
 @Component
 public class DummyDataRunner implements CommandLineRunner {
-
     private final CategoriesRepository categoriesRepository;
     private final ServiceRepository serviceRepository;
 
