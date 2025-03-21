@@ -34,8 +34,6 @@ public class DummyDataRunner implements CommandLineRunner {
     public void run(String... args) throws Exception {
         // Check if data already exists
 
-        System.out.println(generateDummyData);
-
         if (categoriesRepository.count() == 0 && serviceRepository.count() == 0 && generateDummyData) {
 
             System.out.println("Loading dummy data...");
@@ -94,6 +92,9 @@ public class DummyDataRunner implements CommandLineRunner {
 
             // Save categories and services to the database
             categoriesRepository.saveAll(categories);
+
+            System.out.println("Dummydata saved successfully!");
+
         }
     }
 
