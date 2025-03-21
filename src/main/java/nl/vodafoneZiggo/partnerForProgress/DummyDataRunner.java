@@ -5,24 +5,25 @@ import nl.vodafoneZiggo.partnerForProgress.services.data.ServiceRepository;
 import nl.vodafoneZiggo.partnerForProgress.services.domain.Category;
 import nl.vodafoneZiggo.partnerForProgress.services.domain.Information;
 import nl.vodafoneZiggo.partnerForProgress.services.domain.Service;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
-import java.util.UUID;
 
 @Component
 public class DummyDataRunner implements CommandLineRunner {
     private final CategoriesRepository categoriesRepository;
     private final ServiceRepository serviceRepository;
+
+    @Value("${generate-dummy-data:false}")
+    private boolean generateDummyData;
 
     public DummyDataRunner(CategoriesRepository categoriesRepository, ServiceRepository serviceRepository) {
         this.categoriesRepository = categoriesRepository;
@@ -31,10 +32,14 @@ public class DummyDataRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        System.out.println("Loading dummy data...");
-
         // Check if data already exists
-        if (categoriesRepository.count() == 0 && serviceRepository.count() == 0) {
+
+        System.out.println(generateDummyData);
+
+        if (categoriesRepository.count() == 0 && serviceRepository.count() == 0 && generateDummyData) {
+
+            System.out.println("Loading dummy data...");
+
             // Create categories and services
             List<Category> categories = Arrays.asList(
                     createCategory("Agriculture", Arrays.asList(
