@@ -13,6 +13,7 @@ public class Category {
     private String name;
 
     @Lob
+    @Column(columnDefinition = "LONGTEXT")
     private String image;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

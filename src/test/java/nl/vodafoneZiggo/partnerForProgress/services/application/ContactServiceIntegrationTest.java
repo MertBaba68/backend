@@ -70,7 +70,7 @@ class ContactServiceIntegrationTest {
     @Test
     @DisplayName("Can fill in contact form on existing service")
     void contactServicePage() {
-        Category category = new Category("Infrastructure","nope", List.of(new Service("Road building","Building private roads","nope","nope")));
+        Category category = new Category("Infrastructure","nope", List.of(new Service("Road building","Building private roads","nope",List.of())));
         this.categoriesRepository.save(category);
 
         ContactDTO contact = new ContactDTO("41265544","CEO","test@gmail.com","0612345678",
