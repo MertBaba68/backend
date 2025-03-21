@@ -168,7 +168,6 @@ public class DummyDataRunner implements CommandLineRunner {
         try {
             byte[] imageBytes = Files.readAllBytes(Paths.get(imagePath));
             String base64Image = Base64.getEncoder().encodeToString(imageBytes);
-            System.out.println("Afbeelding succesvol geconverteerd: " + imagePath);
             return base64Image;
         } catch (IOException e) {
             System.err.println("Fout bij het lezen van de afbeelding: " + imagePath);
