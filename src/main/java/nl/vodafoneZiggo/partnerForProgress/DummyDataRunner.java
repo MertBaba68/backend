@@ -111,20 +111,7 @@ public class DummyDataRunner implements CommandLineRunner {
 
         // Category-specific info
         switch (category) {
-            case "Agriculture":
-                about.add(new Information("Waardepropositie", "Nimway lost problemen op met betrekking tot inefficiënt gebruik van kantoorruimtes.", Arrays.asList(
-                        "Het biedt bedrijven de mogelijkheid om hun werkplekken effectiever te gebruiken en werknemers te ondersteunen in hun dagelijkse werkzaamheden."
-                ), getRandomInformationImage()));
-                about.add(new Information("Oplossing", "Nimway is een complete suite van slimme kantoorsensoren, schermen en applicaties.", Arrays.asList(
-                        "Het systeem maakt gebruik van real-time sensoren en workplace experience tools om directe kantoorintelligentie te bieden.",
-                        "Dit stelt zowel bedrijven als werknemers in staat om weloverwogen beslissingen te nemen en de werkplekervaring te optimaliseren."
-                ), getRandomInformationImage()));
-                about.add(new Information("Uitkomst", "Door Nimway te implementeren, kunnen bedrijven hun kantoorruimtes optimaliseren.", Arrays.asList(
-                        "Dit leidt tot een efficiënter gebruik van middelen en een verbeterde werkplekervaring voor werknemers.",
-                        "Dit kan resulteren in kostenbesparingen en een verhoogde productiviteit."
-                ), getRandomInformationImage()));
-                break;
-            case "Healthcare":
+            case "Agriculture", "Healthcare":
                 about.add(new Information("Waardepropositie", "Nimway lost problemen op met betrekking tot inefficiënt gebruik van kantoorruimtes.", Arrays.asList(
                         "Het biedt bedrijven de mogelijkheid om hun werkplekken effectiever te gebruiken en werknemers te ondersteunen in hun dagelijkse werkzaamheden."
                 ), getRandomInformationImage()));
@@ -141,7 +128,7 @@ public class DummyDataRunner implements CommandLineRunner {
         }
 
         // Optional extra info
-        if (Math.random() < 0.5) { // 50% kans op extra informatie
+        if (Math.random() < 0.5) { // 50% chance for more info
             about.add(new Information("Extra Informatie", "Meer details over deze service.", null, getRandomInformationImage()));
         }
 
