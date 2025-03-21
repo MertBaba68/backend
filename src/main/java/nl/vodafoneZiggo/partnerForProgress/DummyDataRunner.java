@@ -97,7 +97,7 @@ public class DummyDataRunner implements CommandLineRunner {
     }
 
     private Service createService(String name, String description, String category) {
-        // Maak een lijst van Information-objecten voor de service, afhankelijk van de categorie
+        // Makes an list of Information object for Service, no matter the category
         List<Information> about = new ArrayList<>();
 
         // Algemene informatie die bij alle services past
@@ -109,7 +109,7 @@ public class DummyDataRunner implements CommandLineRunner {
                 "Voor leidinggevenden: nieuwe zakelijke voordelen met een slim kantoor."
         ), getRandomInformationImage()));
 
-        // Categorie-specifieke informatie
+        // Category-specific info
         switch (category) {
             case "Agriculture":
                 about.add(new Information("Waardepropositie", "Nimway lost problemen op met betrekking tot inefficiënt gebruik van kantoorruimtes.", Arrays.asList(
@@ -137,10 +137,10 @@ public class DummyDataRunner implements CommandLineRunner {
                         "Dit kan resulteren in kostenbesparingen en een verhoogde productiviteit."
                 ), getRandomInformationImage()));
                 break;
-            // Voeg andere categorieën toe op dezelfde manier
+            // For in the future, add more cases
         }
 
-        // Optionele extra informatie
+        // Optional extra info
         if (Math.random() < 0.5) { // 50% kans op extra informatie
             about.add(new Information("Extra Informatie", "Meer details over deze service.", null, getRandomInformationImage()));
         }
@@ -154,11 +154,11 @@ public class DummyDataRunner implements CommandLineRunner {
 
     private String getRandomInformationImage() {
         double chance = Math.random();
-        if (chance < 0.3) { // 30% kans op geen afbeelding
+        if (chance < 0.3) { // 30% chance of no image
             return null;
-        } else if (chance < 0.65) { // 35% kans op de eerste afbeelding
+        } else if (chance < 0.65) { // 35% chance for first img
             return convertImageToBase64("images/utility industry (1).png");
-        } else { // 35% kans op de tweede afbeelding
+        } else { // 35% chance for second img
             return convertImageToBase64("images/tracking industry (1).png");
         }
     }
@@ -169,7 +169,7 @@ public class DummyDataRunner implements CommandLineRunner {
             String base64Image = Base64.getEncoder().encodeToString(imageBytes);
             return base64Image;
         } catch (IOException e) {
-            System.err.println("Fout bij het lezen van de afbeelding: " + imagePath);
+            System.err.println("Error reading img: " + imagePath);
             e.printStackTrace();
             return null;
         }
