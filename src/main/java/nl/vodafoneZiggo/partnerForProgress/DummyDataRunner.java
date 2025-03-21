@@ -33,7 +33,6 @@ public class DummyDataRunner implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         // Check if data already exists
-
         if (categoriesRepository.count() == 0 && serviceRepository.count() == 0 && generateDummyData) {
 
             System.out.println("Loading dummy data...");
