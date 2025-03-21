@@ -8,9 +8,16 @@ import nl.vodafoneZiggo.partnerForProgress.services.domain.Service;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.List;
+import java.util.UUID;
 
 @Component
 public class DummyDataRunner implements CommandLineRunner {
@@ -25,7 +32,8 @@ public class DummyDataRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        System.out.println("CONsole");
+        System.out.println("Loading dummy data...");
+
         // Check if data already exists
         if (categoriesRepository.count() == 0 && serviceRepository.count() == 0) {
             // Create categories and services
@@ -142,7 +150,7 @@ public class DummyDataRunner implements CommandLineRunner {
     }
 
     private String getRandomHeaderImage() {
-        return Math.random() < 0.5 ? "/utility industry (1).png" : "/tracking industry (1).png";
+        return convertImageToBase64(Math.random() < 0.5 ? "images/utility industry (1).png" : "images/tracking industry (1).png");
     }
 
     private String getRandomInformationImage() {
@@ -150,9 +158,22 @@ public class DummyDataRunner implements CommandLineRunner {
         if (chance < 0.3) { // 30% kans op geen afbeelding
             return null;
         } else if (chance < 0.65) { // 35% kans op de eerste afbeelding
-            return "/utility industry (1).png";
+            return convertImageToBase64("images/utility industry (1).png");
         } else { // 35% kans op de tweede afbeelding
-            return "/tracking industry (1).png";
+            return convertImageToBase64("images/tracking industry (1).png");
+        }
+    }
+
+    private String convertImageToBase64(String imagePath) {
+        try {
+            byte[] imageBytes = Files.readAllBytes(Paths.get(imagePath));
+            String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+            System.out.println("Afbeelding succesvol geconverteerd: " + imagePath);
+            return base64Image;
+        } catch (IOException e) {
+            System.err.println("Fout bij het lezen van de afbeelding: " + imagePath);
+            e.printStackTrace();
+            return null;
         }
     }
 }
