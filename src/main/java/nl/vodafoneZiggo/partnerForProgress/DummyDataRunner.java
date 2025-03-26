@@ -1,5 +1,7 @@
 package nl.vodafoneZiggo.partnerForProgress;
 
+import nl.vodafoneZiggo.partnerForProgress.security.data.UserRepository;
+import nl.vodafoneZiggo.partnerForProgress.security.domain.User;
 import nl.vodafoneZiggo.partnerForProgress.services.data.CategoriesRepository;
 import nl.vodafoneZiggo.partnerForProgress.services.data.ServiceRepository;
 import nl.vodafoneZiggo.partnerForProgress.services.domain.Category;
@@ -7,6 +9,7 @@ import nl.vodafoneZiggo.partnerForProgress.services.domain.Information;
 import nl.vodafoneZiggo.partnerForProgress.services.domain.Service;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -21,19 +24,28 @@ import java.util.List;
 public class DummyDataRunner implements CommandLineRunner {
     private final CategoriesRepository categoriesRepository;
     private final ServiceRepository serviceRepository;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Value("${generate-dummy-data:false}")
     private boolean generateDummyData;
 
-    public DummyDataRunner(CategoriesRepository categoriesRepository, ServiceRepository serviceRepository) {
+    public DummyDataRunner(CategoriesRepository categoriesRepository, ServiceRepository serviceRepository, UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.categoriesRepository = categoriesRepository;
         this.serviceRepository = serviceRepository;
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     public void run(String... args) throws Exception {
         // Check if data already exists
-        if (categoriesRepository.count() == 0 && serviceRepository.count() == 0 && generateDummyData) {
+        if ((this.categoriesRepository.count() == 0 || this.serviceRepository.count() == 0 || this.userRepository.count() == 0) && generateDummyData) {
+            System.out.println("Deleting existing data...");
+
+            this.categoriesRepository.deleteAll();
+            this.serviceRepository.deleteAll();
+            this.userRepository.deleteAll();
 
             System.out.println("Loading dummy data...");
 
@@ -89,7 +101,9 @@ public class DummyDataRunner implements CommandLineRunner {
                     ))
             );
 
-            categoriesRepository.saveAll(categories);
+            this.categoriesRepository.saveAll(categories);
+
+            this.userRepository.save(new User("admin@admin.nl",this.passwordEncoder.encode("admin123"),"admin"));
 
             System.out.println("Dummydata saved successfully!");
 
