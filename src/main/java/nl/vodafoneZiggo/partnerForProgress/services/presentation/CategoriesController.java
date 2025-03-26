@@ -4,6 +4,7 @@ import nl.vodafoneZiggo.partnerForProgress.services.application.CategoriesServic
 import nl.vodafoneZiggo.partnerForProgress.services.application.dto.CategoryDTO;
 import nl.vodafoneZiggo.partnerForProgress.services.application.dto.CategoriesSearchReq;
 import nl.vodafoneZiggo.partnerForProgress.services.application.exception.NotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;

@@ -46,11 +46,13 @@ public class Category {
         return new ArrayList<>(this.services);
     }
 
-    public void filterSearch(String searchTerm) {
+    public List<Service> filterSearch(String searchTerm) {
         if (searchTerm == null || searchTerm.isEmpty()) {
-            return;
+            return new ArrayList<>(this.services);
         }
 
-        this.services = this.services.stream().filter(s -> s.getName().toLowerCase().contains(searchTerm.toLowerCase())).collect(Collectors.toList());
+        return this.services.stream()
+                .filter(s -> s.getName().toLowerCase().contains(searchTerm.toLowerCase()))
+                .collect(Collectors.toList());
     }
 }
