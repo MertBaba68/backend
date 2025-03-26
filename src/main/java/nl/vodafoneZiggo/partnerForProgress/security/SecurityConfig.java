@@ -28,46 +28,46 @@ import static org.springframework.security.web.util.matcher.AntPathRequestMatche
 @EnableWebSecurity
 @EnableMethodSecurity(securedEnabled = true)
 public class SecurityConfig {
-	private static final String LOGIN_PATH = "/login";
-	@Value("${security.jwt.expiration-in-ms}")
-	private Integer jwtExpirationInMs;
-	@Value("${security.jwt.secret}")
-	private String jwtSecret;
+    private static final String LOGIN_PATH = "/login";
+    @Value("${security.jwt.expiration-in-ms}")
+    private Integer jwtExpirationInMs;
+    @Value("${security.jwt.secret}")
+    private String jwtSecret;
 
-	@Bean
-	protected AuthenticationManager authenticationManager(final PasswordEncoder passwordEncoder, final UserDetailsService userDetailsService) {
-		final DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-		provider.setUserDetailsService(userDetailsService);
-		provider.setPasswordEncoder(passwordEncoder);
-		return new ProviderManager(provider);
-	}
+    @Bean
+    protected AuthenticationManager authenticationManager(final PasswordEncoder passwordEncoder, final UserDetailsService userDetailsService) {
+        final DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setUserDetailsService(userDetailsService);
+        provider.setPasswordEncoder(passwordEncoder);
+        return new ProviderManager(provider);
+    }
 
-	@Bean
-	protected SecurityFilterChain filterChain(final HttpSecurity http, final AuthenticationManager authenticationManager) throws Exception {
-		http.cors(Customizer.withDefaults())
-		    .csrf(AbstractHttpConfigurer::disable)
-		    .authorizeHttpRequests(r -> r
-				    .requestMatchers(antMatcher(POST, LOGIN_PATH)).permitAll()
-				    .requestMatchers(antMatcher(GET, "/categories/**")).permitAll()
-					.requestMatchers(antMatcher(POST, "/categories/name/**")).permitAll()
-				    .requestMatchers(antMatcher(POST, "/contact/")).permitAll()
-				    .requestMatchers(antMatcher(GET, "/services/**")).permitAll()
-				    .requestMatchers(antMatcher("/error")).anonymous()
-				    .anyRequest().authenticated()
-		    )
-		    .addFilterBefore(new JwtAuthenticationFilter(
-				    LOGIN_PATH,
-				    jwtSecret,
-				    jwtExpirationInMs,
-				    authenticationManager
-		    ), UsernamePasswordAuthenticationFilter.class)
-		    .addFilter(new JwtAuthorizationFilter(jwtSecret, authenticationManager))
-		    .sessionManagement(s -> s.sessionCreationPolicy(STATELESS));
-		return http.build();
-	}
+    @Bean
+    protected SecurityFilterChain filterChain(final HttpSecurity http, final AuthenticationManager authenticationManager) throws Exception {
+        http.cors(Customizer.withDefaults())
+                .csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(r -> r
+                        .requestMatchers(antMatcher(POST, LOGIN_PATH)).permitAll()
+                        .requestMatchers(antMatcher(GET, "/categories/**")).permitAll()
+                        .requestMatchers(antMatcher(POST, "/categories/name/**")).permitAll()
+                        .requestMatchers(antMatcher(POST, "/contact/")).permitAll()
+                        .requestMatchers(antMatcher(GET, "/services/**")).permitAll()
+                        .requestMatchers(antMatcher("/error")).anonymous()
+                        .anyRequest().authenticated()
+                )
+                .addFilterBefore(new JwtAuthenticationFilter(
+                        LOGIN_PATH,
+                        jwtSecret,
+                        jwtExpirationInMs,
+                        authenticationManager
+                ), UsernamePasswordAuthenticationFilter.class)
+                .addFilter(new JwtAuthorizationFilter(jwtSecret, authenticationManager))
+                .sessionManagement(s -> s.sessionCreationPolicy(STATELESS));
+        return http.build();
+    }
 
-	@Bean
-	protected PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
+    @Bean
+    protected PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 }
