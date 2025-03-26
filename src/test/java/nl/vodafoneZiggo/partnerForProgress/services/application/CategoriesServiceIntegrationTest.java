@@ -1,5 +1,6 @@
 package nl.vodafoneZiggo.partnerForProgress.services.application;
 
+import nl.vodafoneZiggo.partnerForProgress.services.application.dto.CategoriesSearchReq;
 import nl.vodafoneZiggo.partnerForProgress.services.application.dto.CategoryDTO;
 import nl.vodafoneZiggo.partnerForProgress.services.application.exception.NotFoundException;
 import nl.vodafoneZiggo.partnerForProgress.services.data.CategoriesRepository;
@@ -34,8 +35,8 @@ class CategoriesServiceIntegrationTest {
 
         categories = new ArrayList<>();
         categories.add(new Category("test1", "test", List.of()));
-        categories.add(new Category("test2", "test", List.of(new Service("service 1", "test service", "test image",List.of()))));
-        categories.add(new Category("test3", "test", List.of(new Service("service 2", "test service", "test image",List.of()), new Service("service 2", "test service", "test image", List.of()))));
+        categories.add(new Category("test2", "test", List.of(new Service("service 1", "test service", "test image", List.of()))));
+        categories.add(new Category("test3", "test", List.of(new Service("service 1", "test service", "test image", List.of()), new Service("service 2", "test service", "test image", List.of()))));
 
         this.categoriesRepository.saveAll(categories);
     }
@@ -71,13 +72,13 @@ class CategoriesServiceIntegrationTest {
         UUID id = UUID.randomUUID();
         NotFoundException e = assertThrows(NotFoundException.class, () -> categoriesService.getCategoryById(id));
 
-        assertEquals("No category found with id "+id, e.getMessage());
+        assertEquals("No category found with id " + id, e.getMessage());
     }
 
     @Test
     @DisplayName("Retrieving category by name")
     void getCategoryByName() {
-        CategoryDTO categoryDTO = assertDoesNotThrow(() -> categoriesService.getCategoryByName(categories.get(0).getName()));
+        CategoryDTO categoryDTO = assertDoesNotThrow(() -> categoriesService.getCategoryByName(categories.get(0).getName(), new CategoriesSearchReq("")));
         Category category = categories.get(0);
 
         assertEquals(category.getName(), categoryDTO.getName());
@@ -87,12 +88,24 @@ class CategoriesServiceIntegrationTest {
     }
 
     @Test
+    @DisplayName("Retrieving category by name, filtered search")
+    void getCategoryByNameSearch() {
+        CategoryDTO categoryDTO = assertDoesNotThrow(() -> categoriesService.getCategoryByName(categories.get(2).getName(), new CategoriesSearchReq("1")));
+        Category category = categories.get(2);
+
+        assertEquals(category.getName(), categoryDTO.getName());
+        assertEquals(category.getImage(), categoryDTO.getImage());
+        assertEquals(category.getId(), categoryDTO.getId());
+        assertEquals(1, categoryDTO.getServices().size());
+    }
+
+    @Test
     @DisplayName("Retrieving non existing Category by name")
     void getNonExistingCategoryByName() {
         String randomName = "ewfijweoifu3289r";
 
-        NotFoundException e = assertThrows(NotFoundException.class, () -> categoriesService.getCategoryByName(randomName));
+        NotFoundException e = assertThrows(NotFoundException.class, () -> categoriesService.getCategoryByName(randomName, new CategoriesSearchReq("")));
 
-        assertEquals("No category found with name "+randomName, e.getMessage());
+        assertEquals("No category found with name " + randomName, e.getMessage());
     }
 }

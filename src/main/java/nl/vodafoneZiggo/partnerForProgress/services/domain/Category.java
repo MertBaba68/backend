@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Entity
 public class Category {
@@ -43,5 +44,13 @@ public class Category {
 
     public List<Service> getServices() {
         return new ArrayList<>(this.services);
+    }
+
+    public void filterSearch(String searchTerm) {
+        if (searchTerm == null || searchTerm.isEmpty()) {
+            return;
+        }
+
+        this.services = this.services.stream().filter(s -> s.getName().toLowerCase().contains(searchTerm.toLowerCase())).collect(Collectors.toList());
     }
 }

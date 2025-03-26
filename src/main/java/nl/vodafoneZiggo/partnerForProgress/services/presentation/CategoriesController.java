@@ -2,12 +2,10 @@ package nl.vodafoneZiggo.partnerForProgress.services.presentation;
 
 import nl.vodafoneZiggo.partnerForProgress.services.application.CategoriesService;
 import nl.vodafoneZiggo.partnerForProgress.services.application.dto.CategoryDTO;
+import nl.vodafoneZiggo.partnerForProgress.services.application.dto.CategoriesSearchReq;
 import nl.vodafoneZiggo.partnerForProgress.services.application.exception.NotFoundException;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -36,10 +34,10 @@ public class CategoriesController {
         }
     }
 
-    @GetMapping("/name/{name}")
-    public CategoryDTO getCategoryByName(@PathVariable String name) {
+    @PostMapping("/name/{name}")
+    public CategoryDTO getCategoryByName(@PathVariable String name, @RequestBody CategoriesSearchReq search) {
         try{
-            return this.categoriesService.getCategoryByName(name);
+            return this.categoriesService.getCategoryByName(name, search);
         } catch (NotFoundException e){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }

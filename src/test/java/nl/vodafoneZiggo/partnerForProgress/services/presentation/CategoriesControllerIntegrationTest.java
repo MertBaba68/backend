@@ -72,15 +72,33 @@ class CategoriesControllerIntegrationTest {
     @Test
     @DisplayName("Retrieving category by name")
     void getCategoryByName() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/categories/name/" + categories.get(1).getName())).andExpect(status().isOk())
+        mockMvc.perform(MockMvcRequestBuilders.post("/categories/name/" + categories.get(1).getName())
+                        .contentType("application/json")
+                        .content("{\"searchTerm\":\"service\"}"))
+                .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(categories.get(1).getId().toString()))
                 .andExpect(jsonPath("$.name").value(categories.get(1).getName()))
                 .andExpect(jsonPath("$.services.length()").value(categories.get(1).getServices().size()));
     }
 
     @Test
-    @DisplayName("Retrieving non existing category by name")
+    @DisplayName("Retrieving category by name filtered search")
+    void getCategoryByName1Service() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/categories/name/" + categories.get(1).getName())
+                        .contentType("application/json")
+                        .content("{\"searchTerm\":\"1\"}"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(categories.get(1).getId().toString()))
+                .andExpect(jsonPath("$.name").value(categories.get(1).getName()))
+                .andExpect(jsonPath("$.services.length()").value(1));
+    }
+
+    @Test
+    @DisplayName("Retrieving non-existing category by name")
     void getNonExistingCategoryByName() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/categories/name/kaaskroket")).andExpect(status().isNotFound());
+        mockMvc.perform(MockMvcRequestBuilders.post("/categories/name/kaaskroket")
+                        .contentType("application/json")
+                        .content("{\"searchTerm\":\"\"}"))
+                .andExpect(status().isNotFound());
     }
 }
