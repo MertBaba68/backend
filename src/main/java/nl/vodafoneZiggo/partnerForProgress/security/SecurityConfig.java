@@ -49,6 +49,7 @@ public class SecurityConfig {
 		    .authorizeHttpRequests(r -> r
 				    .requestMatchers(antMatcher(POST, LOGIN_PATH)).permitAll()
 				    .requestMatchers(antMatcher(GET, "/categories/**")).permitAll()
+					.requestMatchers(antMatcher(POST, "/categories/name/**")).permitAll()
 				    .requestMatchers(antMatcher(POST, "/contact/")).permitAll()
 				    .requestMatchers(antMatcher(GET, "/services/**")).permitAll()
 				    .requestMatchers(antMatcher("/error")).anonymous()

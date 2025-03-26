@@ -1,5 +1,6 @@
 package nl.vodafoneZiggo.partnerForProgress.services.application;
 
+import nl.vodafoneZiggo.partnerForProgress.services.application.dto.CategoriesSearchReq;
 import nl.vodafoneZiggo.partnerForProgress.services.application.dto.CategoryDTO;
 import nl.vodafoneZiggo.partnerForProgress.services.application.dto.ServiceDTO;
 import nl.vodafoneZiggo.partnerForProgress.services.application.exception.NotFoundException;
@@ -34,8 +35,8 @@ class CategoriesServiceTest {
 
         categories = new ArrayList<>();
         categories.add(new Category("test1", "test", List.of()));
-        categories.add(new Category("test2", "test", List.of(new Service("service 1", "test service", "test image",List.of()))));
-        categories.add(new Category("test3", "test", List.of(new Service("service 2", "test service", "test image",List.of()), new Service("service 2", "test service", "test image",List.of()))));
+        categories.add(new Category("test2", "test", List.of(new Service("service 1", "test service", "test image", List.of()))));
+        categories.add(new Category("test3", "test", List.of(new Service("service 2", "test service", "test image", List.of()), new Service("service 2", "test service", "test image", List.of()))));
     }
 
     @Test
@@ -97,7 +98,7 @@ class CategoriesServiceTest {
 
         NotFoundException e = assertThrows(NotFoundException.class, () -> categoriesService.getCategoryById(categories.get(0).getId()));
 
-        assertEquals("No category found with id "+categories.get(0).getId(), e.getMessage());
+        assertEquals("No category found with id " + categories.get(0).getId(), e.getMessage());
     }
 
     @Test
@@ -105,7 +106,7 @@ class CategoriesServiceTest {
     void getCategoryByName() {
         when(categoriesRepository.findByName(anyString())).thenReturn(Optional.of(categories.get(0)));
 
-        CategoryDTO categoryDTO = assertDoesNotThrow(() -> categoriesService.getCategoryByName(categories.get(0).getName()));
+        CategoryDTO categoryDTO = assertDoesNotThrow(() -> categoriesService.getCategoryByName(categories.get(0).getName(), new CategoriesSearchReq("")));
         Category category = categories.get(0);
 
         assertEquals(category.getName(), categoryDTO.getName());
@@ -129,8 +130,8 @@ class CategoriesServiceTest {
     void getNonExistingCategoryByName() {
         when(categoriesRepository.findByName(anyString())).thenReturn(Optional.empty());
 
-        NotFoundException e = assertThrows(NotFoundException.class, () -> categoriesService.getCategoryByName(categories.get(0).getName()));
+        NotFoundException e = assertThrows(NotFoundException.class, () -> categoriesService.getCategoryByName(categories.get(0).getName(), new CategoriesSearchReq("")));
 
-        assertEquals("No category found with name "+categories.get(0).getName(), e.getMessage());
+        assertEquals("No category found with name " + categories.get(0).getName(), e.getMessage());
     }
 }
