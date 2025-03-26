@@ -36,7 +36,7 @@ class CategoriesServiceIntegrationTest {
         categories = new ArrayList<>();
         categories.add(new Category("test1", "test", List.of()));
         categories.add(new Category("test2", "test", List.of(new Service("service 1", "test service", "test image", List.of()))));
-        categories.add(new Category("test3", "test", List.of(new Service("service 2", "test service", "test image", List.of()), new Service("service 2", "test service", "test image", List.of()))));
+        categories.add(new Category("test3", "test", List.of(new Service("service 1", "test service", "test image", List.of()), new Service("service 2", "test service", "test image", List.of()))));
 
         this.categoriesRepository.saveAll(categories);
     }
@@ -85,6 +85,18 @@ class CategoriesServiceIntegrationTest {
         assertEquals(category.getImage(), categoryDTO.getImage());
         assertEquals(category.getId(), categoryDTO.getId());
         assertEquals(category.getServices().size(), categoryDTO.getServices().size());
+    }
+
+    @Test
+    @DisplayName("Retrieving category by name, filtered search")
+    void getCategoryByNameSearch() {
+        CategoryDTO categoryDTO = assertDoesNotThrow(() -> categoriesService.getCategoryByName(categories.get(2).getName(), new CategoriesSearchReq("1")));
+        Category category = categories.get(2);
+
+        assertEquals(category.getName(), categoryDTO.getName());
+        assertEquals(category.getImage(), categoryDTO.getImage());
+        assertEquals(category.getId(), categoryDTO.getId());
+        assertEquals(1, categoryDTO.getServices().size());
     }
 
     @Test
