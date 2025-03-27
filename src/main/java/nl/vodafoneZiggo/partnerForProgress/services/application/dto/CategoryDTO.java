@@ -24,7 +24,12 @@ public class CategoryDTO {
     }
 
     public static CategoryDTO fromCategory(Category category) {
-        return new CategoryDTO(category.getId(),category.getName(), category.getImage(), category.getServices());
+        return new CategoryDTO(
+                category.getId(),
+                category.getName(),
+                category.getImage(),
+                category.getServices()
+        );
     }
 
     public UUID getId() {

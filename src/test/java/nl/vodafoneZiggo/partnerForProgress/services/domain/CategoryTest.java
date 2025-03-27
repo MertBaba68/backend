@@ -19,8 +19,8 @@ class CategoryTest {
                 new Service("2a", "", "", List.of())
         ));
 
-        category.filterSearch("1");
+        List<Service> copyOfCategory = category.filterSearch("1");
 
-        assertEquals(4, category.getServices().size());
+        assertEquals(4, copyOfCategory.size());
     }
 }

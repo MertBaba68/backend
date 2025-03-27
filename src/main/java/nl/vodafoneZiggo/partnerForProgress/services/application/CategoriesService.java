@@ -30,10 +30,16 @@ public class CategoriesService {
     }
 
     public CategoryDTO getCategoryByName(String name, CategoriesSearchReq search) throws NotFoundException {
-        Category category = this.categoriesRepository.findByName(name).orElseThrow(()-> new NotFoundException("No category found with name "+name));
+        Category category = this.categoriesRepository.findByName(name)
+                .orElseThrow(() -> new NotFoundException("No category found with name " + name));
 
-        category.filterSearch(search.getSearchTerm());
+        List<nl.vodafoneZiggo.partnerForProgress.services.domain.Service> filteredServices = category.filterSearch(search.getSearchTerm());
 
-        return CategoryDTO.fromCategory(category);
+        return new CategoryDTO(
+                category.getId(),
+                category.getName(),
+                category.getImage(),
+                filteredServices
+        );
     }
 }
