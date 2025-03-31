@@ -154,7 +154,7 @@ public class DummyDataRunner implements CommandLineRunner {
     }
 
     private String getRandomHeaderImage() {
-        return convertImageToBase64(Math.random() < 0.5 ? "images/utility industry.png" : "images/tracking industry.png");
+        return convertImageToBase64(Math.random() < 0.5 ? "src/main/resources/images/utility industry.png" : "src/main/resources/images/tracking industry.png");
     }
 
     private String getRandomInformationImage() {
@@ -162,9 +162,9 @@ public class DummyDataRunner implements CommandLineRunner {
         if (chance < 0.3) { // 30% chance of no image
             return null;
         } else if (chance < 0.65) { // 35% chance for first img
-            return convertImageToBase64("images/utility industry.png");
+            return convertImageToBase64("src/main/resources/images/utility industry.png");
         } else { // 35% chance for second img
-            return convertImageToBase64("images/tracking industry.png");
+            return convertImageToBase64("src/main/resources/images/tracking industry.png");
         }
     }
 
