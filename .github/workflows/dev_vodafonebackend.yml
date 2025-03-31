@@ -48,13 +48,13 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: java-app
-      
+          
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_682678A5DDCA45809E6EFCFDD06BC0FE }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_FF8A420CAE7E45838DCD9676058F3E71 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_08DCF8EF3F7C42A392F77505DCF09D81 }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_B3496B79FF944F65B7932EF062C8C910 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_E99F8AF6C83A4C70B8BA572E668AB28E }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_4C178DCC476243C194CC216D106DCD42 }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
