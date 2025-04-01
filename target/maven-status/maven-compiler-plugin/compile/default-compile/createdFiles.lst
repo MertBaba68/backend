@@ -30,6 +30,7 @@ nl\vodafoneZiggo\partnerForProgress\security\data\UserRepository.class
 nl\vodafoneZiggo\partnerForProgress\services\application\ContactService.class
 nl\vodafoneZiggo\partnerForProgress\services\data\CategoriesRepository.class
 nl\vodafoneZiggo\partnerForProgress\DummyDataRunner.class
+nl\vodafoneZiggo\partnerForProgress\HealthCheckController.class
 nl\vodafoneZiggo\partnerForProgress\mail\exception\MailException.class
 nl\vodafoneZiggo\partnerForProgress\security\presentation\filter\JwtAuthenticationFilter.class
 nl\vodafoneZiggo\partnerForProgress\services\application\dto\CategoriesSearchReq.class
